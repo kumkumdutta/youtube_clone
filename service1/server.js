@@ -1,13 +1,13 @@
 import Fastify from "fastify";
 import dotenv from "dotenv";
-import * as controller from "./controller/controller.js"
+import * as allRoutes from './routes/routes.js'
 
 dotenv.config();
 
 const fastify = Fastify({
     logger: true})
 
-fastify.post('/get',controller.findUser)
+fastify.register(allRoutes)
 
 fastify.listen({port: process.env.PORT},async (err,address) => {
     if (err) {

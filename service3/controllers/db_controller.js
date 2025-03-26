@@ -2,12 +2,12 @@ import * as Model from '../models/db_models.js'
 const find = async (req,res) =>{
     let {collection} = req.query
     let filterdata = req.body
+
     try {
-        console.log(collection, filterdata, "body");
+      
         
         let data = await Model[collection].find(filterdata).lean()
-        console.log(data, "data is here");
-        
+      
         return res.status(200).send({status:true,data});
 
     } catch (error) {
@@ -29,11 +29,16 @@ const findOne = async (req,res) => {
 const create = async (req,res)=>{
     let {collection} = req.query;
     let document = req.body;
+    console.log(collection,document, "queryies");
+    
     try {
         let data = await new Model[collection](document).save()
+        console.log(data, "hiiiiiiiiiiiiiiiiiii");
+        
         return res.status(200).send({status:true,data});
         
     } catch (error) {
+        console.log(error)
         return res.status(500).send({status:false,data:error});
     }
 }
@@ -94,5 +99,7 @@ export {
     findOne,
     create,
     updateOne,
-    updateMany
+    updateMany,
+    deleteOne,
+    deleteMany
 }

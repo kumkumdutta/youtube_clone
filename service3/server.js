@@ -1,6 +1,7 @@
 import Fastify from "fastify";
 import  connection  from "./config/db.js"
 import { find } from "./controllers/db_controller.js"
+import allRoutes from './routes/db.routes.js'
 import dotenv from "dotenv";
 
 
@@ -11,9 +12,9 @@ const fastify = Fastify({
     logger: true
 });
 
+fastify.register(allRoutes)
 
 
-fastify.post('/get',find)
 
 fastify.listen({port : process.env.PORT},async (err, address) => {
     if (err) {
