@@ -57,7 +57,7 @@ const login = async (req,res)=>{
         }
 
         const token = helper.generateToken(user.data[0]);
-     return res.status(200).send({ token });
+        return res.status(200).send({ token , username:user.data[0].username, email:user.data[0].email });
    
 }
 export {

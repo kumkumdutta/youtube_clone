@@ -1,13 +1,18 @@
+import fastify_multipart from '@fastify/multipart';
 import Fastify from "fastify";
-import dotenv from "dotenv";
-import * as allRoutes from './routes/routes.js'
-
+import dotenv from 'dotenv';
+import * as allRoutes from './routes/file.routes.js'
 dotenv.config();
-
 const fastify = Fastify({
-    logger: true})
-
+    logger : true
+})
+fastify.register(fastify_multipart,{
+    limits : {
+        fileSize : 100*1024*1024
+    
+}})
 fastify.register(allRoutes)
+
 
 fastify.listen({port: process.env.PORT},async (err,address) => {
     if (err) {

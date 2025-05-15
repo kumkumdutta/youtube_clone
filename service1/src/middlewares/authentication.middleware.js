@@ -5,7 +5,7 @@ export const authenticate = async (req, reply) => {
     try {
         
         let secret = process.env.SECRET_KEY;
-        console.log(secret,"******************");
+        console.log(req.headers.authorization,"******************");
         
         const token = req.headers.authorization?.split(" ")[1];
         console.log(token,"hgjghjdj");
@@ -13,7 +13,7 @@ export const authenticate = async (req, reply) => {
             return reply.status(401).send({ error: "Unauthorized" });
         }
 
-        const decoded = jwt.verify(token, process.env.SECRET_KEY);
+        const decoded = jwt.verify(token,secret);
         console.log(decoded,"decodeddecoded");
         req.user = decoded;
 
