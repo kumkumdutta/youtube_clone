@@ -58,7 +58,7 @@ const upload_chunk = async (req, res) => {
         let file_name = file.filename;
         let upload_id = req.query.upload_id;
 
-        const chunkSize = 10 * 1024 * 1024; // 10 MB
+        const chunkSize = 10 * 1024 * 1024; // 10 MB   //10,485,760 bytes
         let partNumber = 1;
         let partsList = [];
 
@@ -68,7 +68,7 @@ const upload_chunk = async (req, res) => {
         console.log(file,"file");
         
         for await (const chunk of file.file) {
-            bufferChunks.push(chunk);
+            bufferChunks.push(chunk); //60bytes
             currentSize += chunk.length;
 
             // Upload part when enough size is collected
@@ -142,4 +142,20 @@ const complete_upload = async (req,res) => {
     }
 }
 
-export { upload_file, create_multipart_upload, upload_chunk , complete_upload};
+const stream_file = async (req,res)=>{
+    try {
+        let file_name = req.query.filename
+        const fileStream = await s3.getObject({
+            Bucket: process.env.bucket_name,
+            Key: file_name
+        }).createReadStream();
+
+        res.header("Content-Type", "application/octet-stream");
+        fileStream.pipe(res);
+    } catch (error) {
+        
+    }
+}
+
+
+export { upload_file, create_multipart_upload, upload_chunk , complete_upload, stream_file};
