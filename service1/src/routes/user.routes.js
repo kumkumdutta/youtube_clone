@@ -1,4 +1,4 @@
-import * as Controller from '../controller/controller.js'
+// import * as Controller from '../controller/controller.js'
 import * as user_controller from '../controller/User/user.controller.js'
 import { authenticate } from '../middlewares/authentication.middleware.js';
 

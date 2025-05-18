@@ -1,9 +1,9 @@
-import * as helper from '../utils/helper.js';
-import * as Function from '../utils/service2.functions.js';
-import { collection } from '../utils/constant.value.js';
+
+import * as Function from '../../utils/service2.functions.js';
+import { collection } from '../../utils/constant.value.js';
 const findUser = async (req,res)=>{
     try {
-        let response = await helper.getdata({Collection:'User',filterdata:req.body})
+        let response = await Function.getdata({Collection:'User',filterdata:req.body})
 
         
         return res.status(200).send({status:true,data:response});

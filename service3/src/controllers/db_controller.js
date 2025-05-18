@@ -2,11 +2,18 @@ import * as Model from '../models/db_models.js'
 const find = async (req,res) =>{
     let {collection} = req.query
     let filterdata = req.body
+    let {limit, offset} = filterdata
+   if(!limit) limit = 10
+   if(!offset) offset = 0
+
+    delete filterdata.limit
+    delete filterdata.Offset
 
     try {
       
         
-        let data = await Model[collection].find(filterdata).lean()
+        let data = await Model[collection].find(filterdata).skip(offset)
+            .limit(limit).lean()
       
         return res.status(200).send({status:true,data});
 

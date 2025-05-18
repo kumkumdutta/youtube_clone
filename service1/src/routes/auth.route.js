@@ -1,4 +1,4 @@
-import * as Controller from '../controller/controller.js'
+import * as Controller from '../controller/Auth/controller.js'
 
 
 export default async (fastify)=>{

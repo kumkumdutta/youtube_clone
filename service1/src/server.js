@@ -1,7 +1,9 @@
 import Fastify from "fastify";
 import dotenv from "dotenv";
-import * as allRoutes from './routes/routes.js'
+import * as userRoutes from './routes/user.routes.js'
 import * as authRoutes from './routes/auth.route.js'
+import * as channelRoutes from './routes/channel.routes.js'
+import * as videoRoutes from './routes/video.routes.js'
 
 dotenv.config();
 
@@ -29,8 +31,10 @@ const fastify = Fastify({
         }
     }})
 
+fastify.register(userRoutes)
 fastify.register(authRoutes)
-fastify.register(allRoutes)
+fastify.register(channelRoutes)
+fastify.register(videoRoutes)
 
 fastify.listen({port: process.env.PORT},async (err,address) => {
     if (err) {
